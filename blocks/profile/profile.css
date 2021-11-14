@@ -1,0 +1,21 @@
+.profile {
+  margin: 40px auto 0;
+  color: #fff;
+  display: grid;
+  grid-template-rows: repeat(2, minmax(min-content, max-content));
+  grid-template-columns: repeat(2, minmax(min-content, max-content)) minmax(min-content, 500px)  minmax(min-content, max-content);
+}
+
+/* @media screen and (max-width: 900px) {
+  .profile {
+    max-width: 90%;
+  }
+} */
+
+@media screen and (max-width: 900px) {
+  .profile {
+    max-width: 282px;
+    grid-template-rows: repeat(4, minmax(min-content, max-content));
+    grid-template-columns: repeat(2, minmax(min-content, max-content));
+  }
+}
