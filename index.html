@@ -19,47 +19,47 @@
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar.png" alt="Фото профиля">
         <h1 class="profile__user-name">Жак-Ив Кусто</h1>
-        <button class="profile__edit-button"></button>
+        <button class="profile__edit-button" type="button"></button>
         <p class="profile__user-job">Исследователь океана</p>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button"></button>
       </section>
 
       <section class="elements">
-        <div class="element">
+        <article class="element">
           <img class="element__image" src="./images/karachaevsk.png" alt="Сентинский храм">
-          <p class="element__title">Карачаевск</p>
-          <button class="element__like-button"></button>
-        </div>
+          <h2 class="element__title">Карачаевск</h2>
+          <button class="element__like-button" type="button"></button>
+        </article>
 
-        <div class="element">
+        <article class="element">
           <img class="element__image" src="./images/elbrus.png" alt="Вид на Эльбрус">
-          <p class="element__title">Гора Эльбрус</p>
-          <button class="element__like-button"></button>
-        </div>
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <button class="element__like-button" type="button"></button>
+        </article>
 
-        <div class="element">
+        <article class="element">
           <img class="element__image" src="./images/dombai.png" alt="Домбай">
-          <p class="element__title">Домбай</p>
-          <button class="element__like-button"></button>
-        </div>
+          <h2 class="element__title">Домбай</h2>
+          <button class="element__like-button" type="button"></button>
+        </article>
 
-        <div class="element">
+        <article class="element">
           <img class="element__image" src="./images/elbrus.png" alt="Вид на Эльбрус">
-          <p class="element__title">Гора Эльбрус</p>
-          <button class="element__like-button"></button>
-        </div>
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <button class="element__like-button" type="button"></button>
+        </article>
 
-        <div class="element">
+        <article class="element">
           <img class="element__image" src="./images/dombai.png" alt="Домбай">
-          <p class="element__title">Домбай</p>
-          <button class="element__like-button"></button>
-        </div>
+          <h2 class="element__title">Домбай</h2>
+          <button class="element__like-button" type="button"></button>
+        </article>
 
-        <div class="element">
+        <article class="element">
           <img class="element__image" src="./images/karachaevsk.png" alt="Сентинский храм">
-          <p class="element__title">Карачаево-Черкессия</p>
-          <button class="element__like-button"></button>
-        </div>
+          <h2 class="element__title">Карачаево-Черкессия</h2>
+          <button class="element__like-button" type="button"></button>
+        </article>
       </section>
     </main>
 
@@ -68,17 +68,17 @@
     </footer>
   </div>
 
-<section class="popup">
+<div class="popup">
   <div class="popup__container">
-    <form class="popup__form">
-      <h3 class="popup__title">Редактировать профиль</h3>
-      <input class="popup__input popup__input_name" placeholder="Имя">
-      <input class="popup__input popup__input_job" placeholder="Профессия">
+    <h3 class="popup__title">Редактировать профиль</h3>
+    <form class="popup__form" name="profile">
+      <input class="popup__input popup__input_type_name" placeholder="Имя" name="name">
+      <input class="popup__input popup__input_type_job" placeholder="Профессия" name="job">
       <button class="popup__save-button" type="submit">Сохранить</button>
     </form>
-    <button class="popup__close-button"></button>
+    <button class="popup__close-button" type="button"></button>
   </div>
-</section>
+</div>
 
   <script src="./scripts/script.js"></script>
 </body>
