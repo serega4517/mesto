@@ -25,9 +25,9 @@ const initialCards = [
   }
 ];
 // Popup
-const popupProfile = document.querySelector('.popup__type_profile');
+const popupProfile = document.querySelector('.popup_type_profile');
 const popupNewCard = document.querySelector('.popup_type_new-card');
-const popupImage = document.querySelector('.popup__type_fullscreen-image');
+const popupImage = document.querySelector('.popup_type_fullscreen-image');
 // Кнопка закрытия Popup
 const closeButton = document.querySelector('.popup__close-button');
 const closeButtonCard = document.querySelector('.popup__close-button_card');
