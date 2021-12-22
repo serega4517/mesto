@@ -1,29 +1,3 @@
-const initialCards = [
-  {
-    name: 'Неон',
-    link: 'https://images.unsplash.com/photo-1637410967210-f19323f0d33a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=399&q=80'
-  },
-  {
-    name: 'Тыквы',
-    link: 'https://images.unsplash.com/photo-1637614895214-4a1cb4d1b173?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=436&q=80'
-  },
-  {
-    name: 'Лего',
-    link: 'https://images.unsplash.com/photo-1637670687638-50cc3a81e04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
-  },
-  {
-    name: 'Авто',
-    link: 'https://images.unsplash.com/photo-1637674855785-84d0270d64c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80'
-  },
-  {
-    name: 'Скульптура',
-    link: 'https://images.unsplash.com/photo-1637666505754-7416ebd70cbf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80'
-  },
-  {
-    name: 'Полет',
-    link: 'https://images.unsplash.com/photo-1637420425895-97a239041d53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1148&q=80'
-  }
-];
 // Popup
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupNewCard = document.querySelector('.popup_type_new-card');
@@ -65,8 +39,6 @@ function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
 }
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
 function formSubmitHandler (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
@@ -77,9 +49,7 @@ function formSubmitHandler (evt) {
 }
 
 // Перебор массива с карточками
-initialCards.forEach((item) => {
-  return addCard(item.name, item.link);
-});
+initialCards.forEach((item) => addCard(item.name, item.link));
 
 // Добавление карточек
 function addCard(name, link) {
@@ -91,36 +61,32 @@ function addCard(name, link) {
 function createNewCard(name, link) {
   const cardTemplale = template.content;
   const cardElement = cardTemplale.querySelector('.element').cloneNode(true);
-  cardElement.querySelector('.element__title').textContent = name;
-  cardElement.querySelector('.element__image').src = link;
-  cardElement.querySelector('.element__image').alt = name;
+  const imageElement =  cardElement.querySelector('.element__image');
+  const titleElement = cardElement.querySelector('.element__title');
+  titleElement.textContent = name;
+  imageElement.src = link;
+  imageElement.alt = name;
+
   // Работа кнопки 'like'
-  cardElement.querySelector('.element__like-button').addEventListener('click', (evt) => {
+  const likeButton = cardElement.querySelector('.element__like-button');
+  likeButton.addEventListener('click', (evt) => {
     evt.target.classList.toggle('element__like-button_active');
   })
 
-  openFullScreenImage(cardElement);
-  deleteCard(cardElement);
+// Удаление карточки на кнопку
+const removeButton = cardElement.querySelector('.element__remove-button');
+removeButton.addEventListener('click', () => cardElement.remove());
+
+  //Открытие картинки в popup
+imageElement.addEventListener('click', () => {
+  fullScreenImage.src = imageElement.src;
+  fullScreenImage.alt = titleElement.textContent;
+  imageDescription.textContent = titleElement.textContent;
+
+  openPopup(popupImage);
+});
 
   return cardElement;
-}
-
-// Открытие картинки в popup
-function openFullScreenImage(item) {
-  const image = item.querySelector('.element__image');
-  const title = item.querySelector('.element__title');
-  image.addEventListener('click', () => {
-    fullScreenImage.src = image.src;
-    fullScreenImage.alt = title.textContent;
-    imageDescription.textContent = title.textContent;
-
-    openPopup(popupImage);
-  })
-}
-
-// Удаление карточки на кнопку
-function deleteCard(cardElement) {
-  cardElement.querySelector('.element__remove-button').addEventListener('click', () => cardElement.remove());
 }
 
 //
