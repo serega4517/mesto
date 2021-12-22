@@ -67,23 +67,23 @@ function createNewCard(name, link) {
   imageElement.src = link;
   imageElement.alt = name;
 
-  // Работа кнопки 'like'
+// Работа кнопки 'like'
   const likeButton = cardElement.querySelector('.element__like-button');
   likeButton.addEventListener('click', (evt) => {
     evt.target.classList.toggle('element__like-button_active');
   })
 
 // Удаление карточки на кнопку
-const removeButton = cardElement.querySelector('.element__remove-button');
-removeButton.addEventListener('click', () => cardElement.remove());
+  const removeButton = cardElement.querySelector('.element__remove-button');
+  removeButton.addEventListener('click', () => cardElement.remove());
 
-  //Открытие картинки в popup
-imageElement.addEventListener('click', () => {
-  fullScreenImage.src = imageElement.src;
-  fullScreenImage.alt = titleElement.textContent;
-  imageDescription.textContent = titleElement.textContent;
+//Открытие картинки в popup
+  imageElement.addEventListener('click', () => {
+    fullScreenImage.src = imageElement.src;
+    fullScreenImage.alt = titleElement.textContent;
+    imageDescription.textContent = titleElement.textContent;
 
-  openPopup(popupImage);
+    openPopup(popupImage);
 });
 
   return cardElement;
