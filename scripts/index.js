@@ -2,6 +2,8 @@
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupNewCard = document.querySelector('.popup_type_new-card');
 const popupImage = document.querySelector('.popup_type_fullscreen-image');
+// Все Popup
+const popups = document.querySelectorAll('.popup');
 // Кнопка закрытия Popup
 const closeButton = document.querySelector('.popup__close-button');
 const closeButtonCard = document.querySelector('.popup__close-button_card');
@@ -28,15 +30,42 @@ const template = document.querySelector('.template');
 // Изображение и описание в popup full screen
 const fullScreenImage = document.querySelector('.popup__image');
 const imageDescription = document.querySelector('.popup__image-description');
+// Настройки валидации
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
+
+// Функция закрытия popup по нажатию клавиши Esc
+const exitByEscButton = (evt) => {
+  if(evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+};
+
+// Функция закрытия popup по нажатию  на overlay
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target === popup) {
+      closePopup(popup);
+    }
+  })
+});
 
 // Функция открытия popup
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
+  document.addEventListener('keydown', exitByEscButton);
 }
 
 // Функция закрытия popup
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
+  document.removeEventListener('keydown', exitByEscButton);
 }
 
 function formSubmitHandler (evt) {
@@ -68,10 +97,12 @@ function createNewCard(name, link) {
   imageElement.alt = name;
 
 // Работа кнопки 'like'
-  const likeButton = cardElement.querySelector('.element__like-button');
-  likeButton.addEventListener('click', (evt) => {
-    evt.target.classList.toggle('element__like-button_active');
-  })
+// Изменил работу кнопки like с испльзованием делегирования события
+cardElement.addEventListener('click', function(evt) {
+  if (evt.target.classList.contains('element__like-button')){
+  evt.target.classList.toggle('element__like-button_active');
+    }
+});
 
 // Удаление карточки на кнопку
   const removeButton = cardElement.querySelector('.element__remove-button');
@@ -113,3 +144,5 @@ closeButtonImage.addEventListener('click', () => closePopup(popupImage));
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
 popupNewCard.addEventListener('submit', submitAddNewCard);
+
+enableValidation(config);
