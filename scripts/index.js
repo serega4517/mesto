@@ -135,7 +135,7 @@ function submitAddNewCard(evt) {
   imageLinkInput.value = '';
 
   // Делаем кнопку "Создать" неактивной, после добавления новой карточки
-  disableSubmitButton(addNewCardButton);
+  disableSubmitButton(addNewCardButton, config);
 }
 
 // Слушатели событий

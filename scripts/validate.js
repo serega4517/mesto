@@ -29,12 +29,14 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const disableSubmitButton = (buttonElement) => {
+// Отключение кнопки сабмита
+const disableSubmitButton = (buttonElement, config) => {
   buttonElement.classList.add(config.inactiveButtonClass);
   buttonElement.setAttribute('disabled', true);
 }
 
-const enableSubmitButton = (buttonElement) => {
+// Включение кнопки сабмита
+const enableSubmitButton = (buttonElement, config) => {
   buttonElement.classList.remove(config.inactiveButtonClass);
   buttonElement.removeAttribute('disabled');
 }
@@ -42,9 +44,9 @@ const enableSubmitButton = (buttonElement) => {
 // Функция отвечает за работу кнопки
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    disableSubmitButton(buttonElement);
+    disableSubmitButton(buttonElement, config);
   } else {
-    enableSubmitButton(buttonElement);
+    enableSubmitButton(buttonElement, config);
   }
 };
 
