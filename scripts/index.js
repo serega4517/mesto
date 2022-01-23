@@ -8,6 +8,8 @@ const popups = document.querySelectorAll('.popup');
 const closeButton = document.querySelector('.popup__close-button');
 const closeButtonCard = document.querySelector('.popup__close-button_card');
 const closeButtonImage = document.querySelector('.popup__close-button_fullscreen-image');
+// Кнопка добавления новой карточки
+const addNewCardButton = document.querySelector('.popup__add-button');
 // Кнопка редактирования профиля
 const editButton = document.querySelector('.profile__edit-button');
 // Кнопка добавления карточки
@@ -47,10 +49,13 @@ const exitByEscButton = (evt) => {
   }
 };
 
-// Функция закрытия popup по нажатию  на overlay
+// Функция закрытия popup по клику на overlay
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target === popup) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("popup__close-button")) {
       closePopup(popup);
     }
   })
@@ -69,7 +74,7 @@ function closePopup(popupElement) {
 }
 
 function formSubmitHandler (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    evt.preventDefault();
 
     nameElement.textContent = nameInput.value;
     jobElement.textContent = jobInput.value;
@@ -97,12 +102,11 @@ function createNewCard(name, link) {
   imageElement.alt = name;
 
 // Работа кнопки 'like'
-// Изменил работу кнопки like с испльзованием делегирования события
-cardElement.addEventListener('click', function(evt) {
-  if (evt.target.classList.contains('element__like-button')){
-  evt.target.classList.toggle('element__like-button_active');
-    }
-});
+  const likeButton = cardElement.querySelector('.element__like-button');
+
+  likeButton.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('element__like-button_active');
+  });
 
 // Удаление карточки на кнопку
   const removeButton = cardElement.querySelector('.element__remove-button');
@@ -129,6 +133,9 @@ function submitAddNewCard(evt) {
 
   imageNameInput.value = '';
   imageLinkInput.value = '';
+
+  // Делаем кнопку "Создать" неактивной, после добавления новой карточки
+  disableSubmitButton(addNewCardButton);
 }
 
 // Слушатели событий
@@ -137,10 +144,8 @@ editButton.addEventListener('click', () => {
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
 });
-closeButton.addEventListener('click', () => closePopup(popupProfile));
+
 addButton.addEventListener('click', () => openPopup(popupNewCard));
-closeButtonCard.addEventListener('click', () => closePopup(popupNewCard));
-closeButtonImage.addEventListener('click', () => closePopup(popupImage));
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
 popupNewCard.addEventListener('submit', submitAddNewCard);

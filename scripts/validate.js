@@ -29,12 +29,22 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
+const disableSubmitButton = (buttonElement) => {
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.setAttribute('disabled', true);
+}
+
+const enableSubmitButton = (buttonElement) => {
+  buttonElement.classList.remove(config.inactiveButtonClass);
+  buttonElement.removeAttribute('disabled');
+}
+
 // Функция отвечает за работу кнопки
-const toggleButtonState = (config, inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
+    disableSubmitButton(buttonElement);
   } else {
-    buttonElement.classList.remove(config.inactiveButtonClass);
+    enableSubmitButton(buttonElement);
   }
 };
 
@@ -43,13 +53,13 @@ const setEventListeners = (formElement, config) => {
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
   // чтобы проверить состояние кнопки в самом начале
-  toggleButtonState(config, inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(config, formElement, inputElement);
       // чтобы проверять его при изменении любого из полей
-      toggleButtonState(config, inputList, buttonElement);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 };
