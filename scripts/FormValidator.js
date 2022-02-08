@@ -11,6 +11,14 @@ export default class FormValidator {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
   }
 
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+    this._hideInputError(inputElement)
+    });
+  }
+
   // Функция которая показывает ошибку
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
@@ -44,19 +52,19 @@ export default class FormValidator {
 };
 
 // Отключение кнопки сабмита
-  disableSubmitButton () {
+  disableSubmitButton() {
     this._buttonElement.classList.add(this._inactiveButtonClass);
     this._buttonElement.setAttribute('disabled', true);
   }
 
 // Включение кнопки сабмита
-  enableSubmitButton () {
+  enableSubmitButton() {
     this._buttonElement.classList.remove(this._inactiveButtonClass);
     this._buttonElement.removeAttribute('disabled');
   }
 
 // Функция отвечает за работу кнопки
-  _toggleButtonState () {
+  _toggleButtonState() {
     if (this._hasInvalidInput(this._inputList)) {
       this.disableSubmitButton();
     } else {
@@ -77,34 +85,11 @@ export default class FormValidator {
   }
   // Функция отвечает за включение валидации формы
   enableValidation() {
-    // Найдём все формы с указанным классом в DOM,
-    // сделаем из них массив методом Array.from
-    const formList = Array.from(document.querySelectorAll(this._formSelector));
-
-    formList.forEach(() => {
       this._formElement.addEventListener('submit', (evt) => {
         // У каждой формы отменим стандартное поведение
         evt.preventDefault();
       });
 
       this._setEventListeners();
-    });
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -26,8 +26,11 @@ export default class Card {
     this._setEventListeners();
 
     // Добавим данные
-    this._element.querySelector('.element__title').textContent = this._name;
-    this._element.querySelector('.element__image').src = this._link;
+    const cardTitle = this._element.querySelector('.element__title');
+    const cardImage = this._element.querySelector('.element__image');
+    cardTitle.textContent = this._name;
+    cardImage.alt = this._name;
+    cardImage.src = this._link;
 
     return this._element;
   }
@@ -62,6 +65,7 @@ export default class Card {
   // Открытие изображения в модальном окне
   _openPopupPhoto() {
     fullScreenImage.src = this._link;
+    fullScreenImage.alt = this._name;
     imageDescription.textContent = this._name;
     openPopup(popupImage);
   }

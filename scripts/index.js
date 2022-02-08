@@ -47,15 +47,20 @@ const addCardFormValidation = new FormValidator(config, cardFormElement);
 editProfileFormValidation.enableValidation();
 addCardFormValidation.enableValidation();
 
+// Создание новой карточки
+function createCard(item) {
+  const card = new Card(item, '.template');
+  const cardElement = card.generateCard();
+
+  return cardElement;
+}
+
 // Перебор массива с объектами карточек
 initialCards.forEach((item) => {
-  // Создадим экземпляр карточки
-    const card = new Card(item, '.template');
-    // Создаём карточку и возвращаем наружу
-    const cardElement = card.generateCard();
-    // Добавляем в DOM
-    cardsSection.prepend(cardElement);
-  });
+  const cardElement = createCard(item);
+
+  cardsSection.prepend(cardElement);
+});
 
 // Функция закрытия popup по нажатию клавиши Esc
 const exitByEscButton = (evt) => {
@@ -90,7 +95,7 @@ function closePopup(popupElement) {
 
 // Сохранение данных при редактировании профиля
 // и отмена действия события по умолчанию
-function formSubmitHandler (evt) {
+function editFormSubmitHandler (evt) {
     evt.preventDefault();
 
     nameElement.textContent = nameInput.value;
@@ -121,9 +126,16 @@ editButton.addEventListener('click', () => {
   openPopup(popupProfile);
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
+  // Сделал кнопку 'Сохранить' активной при открытии попапа редактирования описания профиля,
+  // т.к при открытии попапа, заполненные поля формы - валидны (но, не уверен, что это нужно)
+  editProfileFormValidation.enableSubmitButton();
 });
 
-addButton.addEventListener('click', () => openPopup(popupNewCard));
+addButton.addEventListener('click', () => {
+  openPopup(popupNewCard);
+  // Сброс ошибок валидации, при открытии попапа
+  addCardFormValidation.resetValidation();
+})
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
+formElement.addEventListener('submit', editFormSubmitHandler);
 popupNewCard.addEventListener('submit', submitAddNewCard);
