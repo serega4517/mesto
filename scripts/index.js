@@ -108,9 +108,8 @@ function editFormSubmitHandler (evt) {
 function submitAddNewCard(evt) {
   evt.preventDefault();
 
-  const newCard = new Card({name: imageNameInput.value, link: imageLinkInput.value}, '.template');
-  const card = newCard.generateCard();
-  cardsSection.prepend(card);
+  const newCard = createCard({name: imageNameInput.value, link: imageLinkInput.value});
+  cardsSection.prepend(newCard);
 
   closePopup(popupNewCard);
 
@@ -126,8 +125,7 @@ editButton.addEventListener('click', () => {
   openPopup(popupProfile);
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
-  // Сделал кнопку 'Сохранить' активной при открытии попапа редактирования описания профиля,
-  // т.к при открытии попапа, заполненные поля формы - валидны (но, не уверен, что это нужно)
+
   editProfileFormValidation.enableSubmitButton();
 });
 
