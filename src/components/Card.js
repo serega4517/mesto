@@ -1,11 +1,10 @@
-import { fullScreenImage, imageDescription, openPopup, popupImage } from './index.js'
-
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._alt = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -48,8 +47,8 @@ export default class Card {
     });
 
     // слушатель открытия попап с изображением
-    this._element.querySelector('.element__image').addEventListener('click', (evt) => {
-      this._openPopupPhoto(evt);
+    this._element.querySelector('.element__image').addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link);
      });
   }
   // Лайк карточки
@@ -62,11 +61,11 @@ export default class Card {
     this._element.remove();
   }
 
-  // Открытие изображения в модальном окне
-  _openPopupPhoto() {
-    fullScreenImage.src = this._link;
-    fullScreenImage.alt = this._name;
-    imageDescription.textContent = this._name;
-    openPopup(popupImage);
-  }
+  // // Открытие изображения в модальном окне
+  // _openPopupPhoto() {
+  //   fullScreenImage.src = this._link;
+  //   fullScreenImage.alt = this._name;
+  //   imageDescription.textContent = this._name;
+  //   openPopup(popupImage);
+  // }
 }
