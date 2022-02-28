@@ -8,6 +8,8 @@ import UserInfo from '../components/UserInfo.js';
 import { initialCards } from '../utils/cards.js'
 import { config, formElement, cardFormElement, nameInput, jobInput, editButton, addButton } from '../utils/constants.js';
 
+import './index.css';
+
 
 // Экземпляр класса FormValidator
 const editProfileFormValidation = new FormValidator(config, formElement);
