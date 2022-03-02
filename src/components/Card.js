@@ -59,13 +59,6 @@ export default class Card {
   // Удаление карточки
   _deleteCard() {
     this._element.remove();
+    this._element = null;
   }
-
-  // // Открытие изображения в модальном окне
-  // _openPopupPhoto() {
-  //   fullScreenImage.src = this._link;
-  //   fullScreenImage.alt = this._name;
-  //   imageDescription.textContent = this._name;
-  //   openPopup(popupImage);
-  // }
 }

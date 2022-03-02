@@ -24,8 +24,8 @@ function createCard(item) {
   const card = new Card(item, '.template', () => {
     popupWithImage.open(item);
   });
-  // console.log(item)
-  return card;
+
+  return card.generateCard();
 }
 
 
@@ -40,8 +40,8 @@ popupWithImage.setEventListeners();
 
 
 // Экземпляр класса PopupWithForm
-const popupWithForm = new PopupWithForm('.popup_type_profile', () => {
-  userInfo.setUserInfo(nameInput, jobInput);
+const popupWithForm = new PopupWithForm('.popup_type_profile', (data) => {
+  userInfo.setUserInfo({name: data.name, job: data.job});
   popupWithForm.close();
 });
 
@@ -51,9 +51,9 @@ popupWithForm.setEventListeners();
 // Экземпляр класса PopupWithForm
 const popupWithFormCards = new PopupWithForm('.popup_type_new-card', (data) => {
   const card = createCard(data);
-  const newCardElement = card.generateCard();
-    cards.addItem(newCardElement);
-    popupWithFormCards.close();
+
+  cards.addItem(card);
+  popupWithFormCards.close();
   }
 );
 
@@ -65,8 +65,7 @@ const cards = new Section({
   items: initialCards,
   renderer: (item) => {
     const card = createCard(item);
-    const cardElement = card.generateCard();
-    cards.addItem(cardElement);
+    cards.addItem(card);
   }
 }, '.elements');
 
