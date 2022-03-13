@@ -1,10 +1,16 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor(data, cardSelector, handleCardClick, handleDeleteClick, userId, handleLikeClick) {
     this._name = data.name;
     this._alt = data.name;
     this._link = data.link;
+    this._likes = data.likes;
+    this._id = data._id;
+    this._userId = userId;
+    this._owner = data.owner._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
   _getTemplate() {
@@ -15,6 +21,26 @@ export default class Card {
     .cloneNode(true);
 
     return cardElement;
+  }
+
+  isLiked() {
+    const userHasLikedCard = this._likes.find(user => user._id === this._userId);
+
+    return userHasLikedCard;
+  }
+
+  setLikes(newLikes) {
+    this._likes = newLikes;
+
+    const likeCountElement = this._element.querySelector('.element__like-counter');
+
+    likeCountElement.textContent = this._likes.length;
+
+    if(this.isLiked()) {
+      this._like();
+    } else {
+      this._deleteLike();
+    }
   }
 
   // Метод создает карточку
@@ -31,19 +57,25 @@ export default class Card {
     cardImage.alt = this._name;
     cardImage.src = this._link;
 
+    this.setLikes(this._likes);
+
+    if(this._owner !== this._userId) {
+      this._element.querySelector('.element__remove-button').style.display = 'none';
+    }
+
     return this._element;
   }
 
   // Метод устанавливает слушателей событий
   _setEventListeners() {
     // Слушатель кнопки лайк
-    this._element.querySelector('.element__like-button').addEventListener('click', (evt) => {
-      this._likeCardPhoto(evt);
+    this._element.querySelector('.element__like-button').addEventListener('click', () => {
+      this._handleLikeClick(this._id);
     });
 
     // Слдушатель кнопки удаления карточки
-    this._element.querySelector('.element__remove-button').addEventListener('click', (evt) => {
-      this._deleteCard(evt);
+    this._element.querySelector('.element__remove-button').addEventListener('click', () => {
+      this._handleDeleteClick(this._id);
     });
 
     // слушатель открытия попап с изображением
@@ -51,13 +83,17 @@ export default class Card {
       this._handleCardClick(this._name, this._link);
      });
   }
-  // Лайк карточки
-  _likeCardPhoto() {
-    this._element.querySelector('.element__like-button').classList.toggle('element__like-button_active');
+
+  _like() {
+    this._element.querySelector('.element__like-button').classList.add('element__like-button_active');
+  }
+
+  _deleteLike() {
+    this._element.querySelector('.element__like-button').classList.remove('element__like-button_active');
   }
 
   // Удаление карточки
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
     this._element = null;
   }
