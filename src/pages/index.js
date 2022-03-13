@@ -118,9 +118,9 @@ popupWithForm.setEventListeners();
 // Экземпляр класса PopupWithForm
 const popupWithFormCards = new PopupWithForm('.popup_type_new-card', (data) => {
   api.addCard(data.name, data.link)
-    .then(() => {
-      const card = createCard(data);
-      cards.addItem(card);
+    .then((res) => {
+      const card = createCard(res);
+      cards.addOwnCard(card);
       popupWithFormCards.close();
     })
   }
