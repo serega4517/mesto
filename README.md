@@ -6,7 +6,7 @@
 #### [Ссылка](https://serega4517.github.io/mesto/) на сайт.
 
 ## Технологии примененные в данном проекте
-----
+
 * HTML
 * CSS
 * JavaScript
