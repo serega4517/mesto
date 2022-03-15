@@ -1,4 +1,4 @@
-class Api {
+export default class Api {
   constructor( {baseUrl, headers} ) {
     this._headers = headers;
     this._baseUrl = baseUrl;
@@ -9,7 +9,6 @@ class Api {
       headers: this._headers
     })
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .catch(console.log)
   }
 
   getInitialCards() {
@@ -17,7 +16,6 @@ class Api {
       headers: this._headers
     })
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .catch(console.log)
   }
 
   editProfile(name, about) {
@@ -30,7 +28,6 @@ class Api {
       })
     })
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .catch(console.log)
   }
 
   addCard(name, link) {
@@ -43,7 +40,6 @@ class Api {
       })
     })
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .catch(console.log)
   }
 
   deleteCard(id) {
@@ -52,7 +48,6 @@ class Api {
       headers: this._headers
     })
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .catch(console.log)
   }
 
   deleteLike(id) {
@@ -61,7 +56,6 @@ class Api {
       headers: this._headers
     })
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .catch(console.log)
   }
 
   addLike(id) {
@@ -70,7 +64,6 @@ class Api {
       headers: this._headers
     })
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .catch(console.log)
   }
 
   changeAvatar(data) {
@@ -82,14 +75,5 @@ class Api {
       })
     })
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .catch(console.log)
   }
 }
-
-export const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-37',
-  headers: {
-    authorization: '440bd938-4919-41d5-a073-f8d309b7b884',
-    'Content-Type': 'application/json'
-  }
-});

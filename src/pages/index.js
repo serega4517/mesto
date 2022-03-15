@@ -1,4 +1,5 @@
 import './index.css';
+import Api from '../components/Api.js'
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
@@ -6,18 +7,44 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 
-import { api } from '../components/Api.js';
-import { config, formElement, avatarFormElement, cardFormElement, nameInput, jobInput, editButton, addButton, avatarEditButton } from '../utils/constants.js';
+import {
+  config,
+  jobInput,
+  nameInput,
+  addButton,
+  editButton,
+  formElement,
+  cardFormElement,
+  avatarEditButton,
+  avatarFormElement
+} from '../utils/constants.js';
+
 
 let userID
 
+// Экземпляр класса API
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-37',
+  headers: {
+    authorization: '440bd938-4919-41d5-a073-f8d309b7b884',
+    'Content-Type': 'application/json'
+  }
+});
+
+
+// Загрузка информации профиля пользователя
 api.getProfile()
   .then(res => {
-    userID = res._id
-    userInfo.setUserInfo( res.name, res.about )
-    userInfo.setUserAvatar(res)
+    userID = res._id;
+    userInfo.setUserInfo( res.name, res.about );
+    userInfo.setUserAvatar(res);
+  })
+  .catch((err) => {
+    console.log(err);
   })
 
+
+// Загрузка карточек с сервера
 api.getInitialCards()
   .then(cardList => {
     cardList.forEach(data => {
@@ -26,7 +53,9 @@ api.getInitialCards()
       cards.addItem(card);
     })
   })
-
+  .catch((err) => {
+    console.log(err);
+  })
 
 
 // Экземпляр класса FormValidator
@@ -55,7 +84,10 @@ function createCard(item) {
       confirmPopup.changeSubmitHandler(() => {
         api.deleteCard(id)
           .then(() => {
-            card.deleteCard()
+            card.deleteCard();
+          })
+          .catch((err) => {
+            console.log(err);
           })
       })
     },
@@ -66,12 +98,18 @@ function createCard(item) {
       if(card.isLiked()) {
         api.deleteLike(id)
           .then(res => {
-            card.setLikes(res.likes)
+            card.setLikes(res.likes);
+          })
+          .catch((err) => {
+            console.log(err);
           })
       } else {
         api.addLike(id)
           .then(res => {
-            card.setLikes(res.likes)
+            card.setLikes(res.likes);
+          })
+          .catch((err) => {
+            console.log(err);
           })
       }
     }
@@ -105,10 +143,17 @@ popupWithImage.setEventListeners();
 
 // Экземпляр класса PopupWithForm
 const popupWithForm = new PopupWithForm('.popup_type_profile', (data) => {
+  popupWithForm.renderLoading(true);
   api.editProfile(data.name, data.job)
     .then(() => {
       userInfo.setUserInfo(data.name, data.job);
       popupWithForm.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupWithForm.renderLoading(false);
     })
 });
 
@@ -117,11 +162,18 @@ popupWithForm.setEventListeners();
 
 // Экземпляр класса PopupWithForm
 const popupWithFormCards = new PopupWithForm('.popup_type_new-card', (data) => {
+  popupWithFormCards.renderLoading(true);
   api.addCard(data.name, data.link)
     .then((res) => {
       const card = createCard(res);
       cards.addOwnCard(card);
       popupWithFormCards.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupWithFormCards.renderLoading(false);
     })
   }
 );
@@ -134,9 +186,16 @@ const confirmPopup = new PopupWithForm('.popup_card-remove');
 confirmPopup.setEventListeners();
 
 const avatarPopup = new PopupWithForm('.popup_avatar-edit', (data) => {
+  avatarPopup.renderLoading(true);
   api.changeAvatar(data)
     .then(res => {
-      userInfo.setUserAvatar(res)
+      userInfo.setUserAvatar(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      avatarPopup.renderLoading(false);
     })
 });
 
