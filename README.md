@@ -13,7 +13,7 @@
 * Flexbox
 * Grid Layout
 * Media Queries
-* Валиддация форм с использованием JS
+* Лайв-валидация форм с использованием JS
 * БЭМ
 * Файловая структура по БЭМ (Nested)
 * API
@@ -27,7 +27,7 @@
 * Постановка и удаление лайков
 * Открытие загруженных изображений в полноэкранном режиме
 * ООП
-* Валидация форм с использованием стандартных сообщений браузера через JS
+* Лайв-валидация форм с использованием стандартных сообщений браузера через JS
 * API
 * Сборка проекта Webpack(ом)
 
@@ -56,7 +56,7 @@ The site is adapted to screens from 320px.
 * Flexbox
 * Grid Layout
 * Media Queries
-* Form validation with using JS
+* Form live-validation with using JS
 * BEM
 * BEM (Nested) file structure
 * API
@@ -70,7 +70,7 @@ The site is adapted to screens from 320px.
 * Setting and deleting likes
 * Opening uploaded images in full-screen mode
 * OOP
-* Form validation using standard browser messages via JS
+* Form live-validation using standard browser messages via JS
 * API
 * Building a project with Webpack
 
