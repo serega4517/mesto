@@ -37,7 +37,7 @@
 <div class="popup popup_type_profile">
   <div class="popup__container">
     <h3 class="popup__title">Редактировать профиль</h3>
-    <form class="popup__form" name="profile" autocomplete="off" novalidate>
+    <form class="popup__form popup__form-profile" name="profile" autocomplete="off" novalidate>
       <div class="input-container">
         <input class="popup__input popup__input_type_name" id="name-input" placeholder="Имя" name="name" type="text" minlength="2" maxlength="40" required>
         <span class="popup__input-error name-input-error"></span>
@@ -55,7 +55,7 @@
 <div class="popup popup_type_new-card">
   <div class="popup__container">
     <h3 class="popup__title">Новое место</h3>
-    <form class="popup__form popup__form-image" name="profile" autocomplete="off" novalidate>
+    <form class="popup__form popup__form-image" name="new-place" autocomplete="off" novalidate>
       <div class="input-container">
         <input class="popup__input popup__input_type_title" id="place-input" placeholder="Название" name="name" type="text" minlength="2" maxlength="30" required>
         <span class="popup__input-error place-input-error"></span>
@@ -81,7 +81,7 @@
 <div class="popup popup popup_card-remove">
   <div class="popup__container">
     <h3 class="popup__title">Вы уверены?</h3>
-    <form class="popup__form">
+    <form class="popup__form" name="confirm">
       <button class="popup__save-button popup__save-button_card-remove" type="submit">Да</button>
     </form>
     <button class="popup__close-button" type="button"></button>
@@ -92,7 +92,7 @@
 <div class="popup popup_avatar-edit">
   <div class="popup__container">
     <h3 class="popup__title">Обновить аватар</h3>
-    <form class="popup__form popup__form-image" autocomplete="off" novalidate>
+    <form class="popup__form popup__form-image" name="edit-avatar" autocomplete="off" novalidate>
       <div class="popup__wrapper">
         <input class="popup__input popup__input_avatar-edit" id="avatar-input" placeholder="Ссылка на картинку" name="avatar" type="url" required>
         <span class="popup__input-error avatar-input-error"></span>

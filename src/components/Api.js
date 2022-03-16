@@ -4,18 +4,25 @@ export default class Api {
     this._baseUrl = baseUrl;
   }
 
+  _getResponseData(res) {
+    if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+}
+
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(this._getResponseData);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(this._getResponseData);
   }
 
   editProfile(name, about) {
@@ -27,7 +34,7 @@ export default class Api {
         about
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(this._getResponseData);
   }
 
   addCard(name, link) {
@@ -39,7 +46,7 @@ export default class Api {
         link
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(this._getResponseData);
   }
 
   deleteCard(id) {
@@ -47,7 +54,7 @@ export default class Api {
       method: "DELETE",
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(this._getResponseData);
   }
 
   deleteLike(id) {
@@ -55,7 +62,7 @@ export default class Api {
       method: "DELETE",
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(this._getResponseData);
   }
 
   addLike(id) {
@@ -63,7 +70,7 @@ export default class Api {
       method: "PUT",
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(this._getResponseData);
   }
 
   changeAvatar(data) {
@@ -74,6 +81,6 @@ export default class Api {
         avatar: data.avatar
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(this._getResponseData);
   }
 }

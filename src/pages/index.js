@@ -13,7 +13,7 @@ import {
   nameInput,
   addButton,
   editButton,
-  formElement,
+  formProfileElement,
   cardFormElement,
   avatarEditButton,
   avatarFormElement
@@ -31,23 +31,17 @@ const api = new Api({
   }
 });
 
+// Передаем массив с промисами, которые нужно выполнить
+Promise.all([ api.getProfile(), api.getInitialCards() ])
+  .then((res) => {
+  // console.log(res)
+    // Загрузка информации профиля пользователя
+    userID = res[0]._id;
+    userInfo.setUserInfo( res[0].name, res[0].about );
+    userInfo.setUserAvatar(res[0]);
 
-// Загрузка информации профиля пользователя
-api.getProfile()
-  .then(res => {
-    userID = res._id;
-    userInfo.setUserInfo( res.name, res.about );
-    userInfo.setUserAvatar(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-
-
-// Загрузка карточек с сервера
-api.getInitialCards()
-  .then(cardList => {
-    cardList.forEach(data => {
+    // Загрузка карточек с сервера
+    res[1].forEach(data => {
       const card = createCard(data);
 
       cards.addItem(card);
@@ -59,7 +53,7 @@ api.getInitialCards()
 
 
 // Экземпляр класса FormValidator
-const editProfileFormValidation = new FormValidator(config, formElement);
+const editProfileFormValidation = new FormValidator(config, formProfileElement);
 const addCardFormValidation = new FormValidator(config, cardFormElement);
 const editAvatarFormValidation = new FormValidator(config, avatarFormElement);
 // Включение валидации форм
@@ -82,12 +76,17 @@ function createCard(item) {
     (id) => {
       confirmPopup.open();
       confirmPopup.changeSubmitHandler(() => {
+        confirmPopup.renderLoading(true);
         api.deleteCard(id)
           .then(() => {
             card.deleteCard();
+            confirmPopup.close();
           })
           .catch((err) => {
             console.log(err);
+          })
+          .finally(() => {
+            confirmPopup.renderLoading(false);
           })
       })
     },
@@ -190,6 +189,7 @@ const avatarPopup = new PopupWithForm('.popup_avatar-edit', (data) => {
   api.changeAvatar(data)
     .then(res => {
       userInfo.setUserAvatar(res);
+      avatarPopup.close();
     })
     .catch((err) => {
       console.log(err);

@@ -8,7 +8,7 @@ export const addButton = document.querySelector('.profile__add-button');
 
 export const avatarEditButton = document.querySelector('.profile__avatar-edit-button');
 // Форма popup
-export const formElement = document.querySelector('.popup__form');
+export const formProfileElement = document.querySelector('.popup__form-profile');
 export const cardFormElement = popupNewCard.querySelector('.popup__form');
 export const avatarFormElement = popupAvatarEdit.querySelector('.popup__form-image');
 // Инпуты имени и описания профиля popup
