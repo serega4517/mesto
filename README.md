@@ -40,6 +40,7 @@
 * Провести рефакторинг кода
 * Реализовать регистрацию пользователей
 * Реализовать англоязычную версию сайта
+* Портировать проект на React :white_check_mark:
 ----
 # Project: Mesto
 
@@ -83,3 +84,4 @@ The site is adapted to screens from 320px.
 * Perform code refactoring
 * Realize user registration
 * Realize the English version of the site
+* Move the project to React :white_check_mark:
