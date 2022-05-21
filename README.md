@@ -38,7 +38,7 @@
 ## Планы по доработке проекта
 
 * Провести рефакторинг кода
-* Реализовать регистрацию пользователей
+* Реализовать регистрацию пользователей :white_check_mark:
 * Реализовать англоязычную версию сайта
 * Портировать проект на React :white_check_mark:
 ----
@@ -82,6 +82,6 @@ The site is adapted to screens from 320px.
 ## Future improvements
 
 * Perform code refactoring
-* Realize user registration
+* Realize user registration :white_check_mark:
 * Realize the English version of the site
 * Move the project to React :white_check_mark:
